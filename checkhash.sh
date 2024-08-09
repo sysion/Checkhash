@@ -29,12 +29,12 @@ fi
 isHashVal=1
 
 if [[ -s "$1" ]]; then
+	filename="$1"
+
 	if [[ -s "$2" ]]; then
-		filename="$1"
 		hashtxt="$2"
 		isHashVal=0
 	elif [[ ! -s "$2" ]]; then
-		filename="$1"
 		hashval="$2"
 	fi
 else
