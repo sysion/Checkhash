@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 
-#####!/usr/bin/bash -x
-
 # checkhash.sh filename [hash.txt | hash_value] [md5 | sha256]
 
-# $@ represents all the arguments passed at the command line
-
-#echo $*
-#echo $@
-#echo $$
-#echo $#
 
 awk=/usr/bin/awk
 cat=/usr/bin/cat
