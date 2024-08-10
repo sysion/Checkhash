@@ -5,3 +5,4 @@ django_hashes_whl.txt
 django_hashes_tar.gz.txt
 samples.sh
 checkhash.bak.sh
+verify_hashes.py
