@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#####!/usr/bin/bash -x
+
 # checkhash.sh filename [hash.txt | hash_value] [md5 | sha256]
 
 # $@ represents all the arguments passed at the command line
@@ -13,10 +15,11 @@ awk=/usr/bin/awk
 cat=/usr/bin/cat
 grep=/usr/bin/grep
 head=/usr/bin/head
-md5=/usr/bin/md5
+md5sum=/usr/bin/md5sum
 sed=/usr/bin/sed
-sha256=/usr/bin/sha256
-sha512=/usr/bin/sha512
+shasum=/usr/bin/shasum
+sha256sum=/usr/bin/sha256sum
+sha512sum=/usr/bin/sha512sum
 
 if [[ $# -ne 3 ]]; then
 	echo "Two arguments must be passed to $0"
@@ -57,4 +60,38 @@ else
 	HashVal=$2
 fi
 
-echo $HashVal
+# remove terminating \r character
+HashVal=$(echo $HashVal | sed 's/\r$//')
+
+print_color_output(){ 
+	flag=-1
+
+	if [[ $# -eq 0 ]]; then
+		sflag="NOK"
+	elif [[ $# == 1 ]]; then
+		sflag=$1
+		flag=1
+	fi
+
+	green="\e[1;32m"
+	red="\e[1;31m"
+	reset="\e[0m"
+
+	if [[ $flag -eq -1 ]]; then
+		echo -e "$red $sflag $reset"
+	elif [[ $flag -eq 1 ]]; then
+		echo -e "$green $sflag $reset"
+	fi
+}
+
+if [[ $Hashtool == "md5" ]]; then
+	# redirect errors to null and get the "OK" from the result
+	output=$(echo $HashVal $1 | $md5sum -c - 2>/dev/null | $sed -e 's/^.*:\s*//') 
+	print_color_output $output
+elif [[ $Hashtool == "sha256" ]]; then
+	output=$(echo $HashVal $1 | $sha256sum -c - 2>/dev/null | $sed -e 's/^.*:\s*//')
+	print_color_output $output
+elif [[ $Hashtool == "sha512" ]]; then
+	output=$(echo $HashVal $1 | $sha512sum -c - 2>/dev/null | $sed -e 's/^.*:\s*//')
+	print_color_output $output
+fi

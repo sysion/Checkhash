@@ -1,3 +1,7 @@
 Django-5.0.7-py3-none-any.whl
+Django-5.0.7.tar.gz
 django_hashes.txt
+django_hashes_whl.txt
+django_hashes_tar.gz.txt
 samples.sh
+checkhash.bak.sh
