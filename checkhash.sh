@@ -14,7 +14,7 @@ sha256sum=/usr/bin/sha256sum
 sha512sum=/usr/bin/sha512sum
 
 if [[ $# -ne 3 ]]; then
-	echo "Two arguments must be passed to $0"
+	echo "Three arguments must be passed to $0"
 	echo "like this: $0 filename [hash.txt | hash_value] [md5 | sha256 | sha512]"
 	echo "example 1: $0 filename hash.txt md5"
 	echo "example 2: $0 filename hash_value md5"
